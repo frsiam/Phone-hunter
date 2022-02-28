@@ -8,14 +8,24 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- external css file link  -->
+    <link rel="stylesheet" href="./css/style.css">
 
     <title>Phone Finder</title>
   </head>
-  <body>
-    <h1>Phone Finder</h1>
+  <body class="container my-5">
+    <div class="bg-dark text-white text-center p-3 w-50 mx-auto rounded-3 border border-2 border-info">
+        <h3>PHONE FINDER</h3>
+    </div>
+    <div class="input-group w-50 mx-auto my-5">
+        <input id="search-phone" type="search" class="form-control rounded" placeholder="Enter Brand Name" aria-label="Search" aria-describedby="search-addon" />
+        <button onclick="check()" type="button" class="btn btn-success">Search</button>
+    </div>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- sweet alert script  -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- external js file link  -->
     <script src="./js/app.js"></script>
   </body>
