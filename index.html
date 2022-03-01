@@ -12,26 +12,26 @@
 
     <title>Phone Finder</title>
   </head>
-  <body>
+  <body class="h-100">
+
+    <!-- navbar and search box  -->
     <nav class="navbar navbar-dark bg-dark py-1 w-100">
       <div class="container-fluid mx-5 w-100">
-        <a class="navbar-brand fs-1 fw-bolder w-25"><!-- <span id="picon" class="d-sm-none d-md-inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="w-25" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <a id="picon" class="navbar-brand fs-1 fw-bolder w-25"><svg xmlns="http://www.w3.org/2000/svg" class="w-25 d-none d-md-inline-block" fill="none" viewBox="0 1 40 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg> --></span> PHONE FINDER</a>
+        </svg>PHONE FINDER</a>
         <div class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Brand Name" aria-label="Search">
-          <button onclick="check()" class="btn btn-outline-light" type="submit">Search</button>
+          <input id="search-phone" class="form-control me-2" type="search" placeholder="Brand Name" aria-label="Search">
+          <button onclick="searchPhone()" class="btn btn-outline-light" type="submit">Search</button>
         </div>
       </div>
     </nav>
-
-    <!-- <div class="bg-dark text-white text-center p-3 w-50 mx-auto rounded-3 border border-2 border-info">
-        <h3>PHONE FINDER</h3>
+    <!-- main div  -->
+    <!-- if result not found show this message, defaultly hidden  -->
+    <div class="container d-flex h-100 mt-5 justify-content-center d-none" id="not-found">
+      <h3 class="text-danger">No phone found, which you searching</h3>
     </div>
-    <div class="input-group w-50 mx-auto my-5">
-        <input id="search-phone" type="search" class="form-control rounded" placeholder="Enter Brand Name" aria-label="Search" aria-describedby="search-addon" />
-        <button onclick="check()" type="button" class="btn btn-success">Search</button>
-    </div> -->
+
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
