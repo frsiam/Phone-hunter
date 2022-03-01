@@ -22,7 +22,7 @@ const searchPhone = () => {
 
         fetch(url)
             .then(res => res.json())
-            .then(data => showData(data))
+            .then(data => showData(data.data))
     }
     else{
         const div = document.createElement('div')
@@ -32,7 +32,53 @@ const searchPhone = () => {
         foundMessage.appendChild(div)
     }
 }
-
+const phoneCard = document.getElementById('phone-card')
 const showData = data => {
-    console.log(data.data)
+    phoneCard.textContent = ''
+    console.log(data)
+    const twentyData = data.slice(0,20)
+    const remainingData =data.length - twentyData.length
+    console.log(remainingData)
+    if(data.length <= 20) {
+        console.log(twentyData.length)
+        twentyData.forEach(element => {
+            const cardDiv = document.createElement('div')
+            cardDiv.className = 'col'
+            cardDiv.innerHTML = `
+            <div class="card h-100">
+                <img src="${element.image}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a short card.</p>
+                </div>
+            </div>
+            `
+            phoneCard.appendChild(cardDiv)
+            console.log(phoneCard)
+        });
+    }
+    else{
+        console.log(twentyData.length)
+        twentyData.forEach(element => {
+            const cardDiv = document.createElement('div')
+            cardDiv.className = 'col'
+            cardDiv.innerHTML = `
+            <div class="card h-100">
+                <img src="${element.image}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a short card.</p>
+                </div>
+            </div>
+            `
+            phoneCard.appendChild(cardDiv)
+            console.log(phoneCard)
+        });
+        const moreBtn = document.getElementById('more-phone')
+        const moreDiv = document.createElement('div')
+        moreDiv.innerHTML = `
+        <button class="btn btn-outline-dark">More Phone</button>
+        `
+        moreBtn.appendChild(moreDiv)
+    } 
 }
