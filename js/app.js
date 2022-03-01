@@ -10,7 +10,7 @@ const showSuccess = () => {
         toast: true,
         position: 'top',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -95,7 +95,7 @@ const showData = data => {
                 <p class="card-text fw-bold"><span class="fw-bold fs-5 text-primary">Brand :</span> ${element.brand}</p>
                 </div>
                 <div class='text-center mb-3'>
-                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5  fs-5"   >
+                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 See Details
                 </button>
             </div>
@@ -116,7 +116,7 @@ const showData = data => {
                 <p class="card-text fw-bold"><span class="fw-bold fs-5 text-primary">Brand :</span> ${element.brand}</p>
                 </div>
                 <div class='text-center mb-3'>
-                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5"   >
+                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 See Details
                 </button>
             </div>
@@ -151,10 +151,11 @@ const getTheUrl = phoneId => {
     console.log(newUrl)
     fetch(newUrl)
         .then(res => res.json())
-        .then(data => console.log(data.data))
+        .then(data => showDetails(data.data))
 }
 
-/* const showDetails = singleDog => {
+const showDetails = singlePhone => {
+    console.log(singlePhone.image)
     const detailsDiv = document.getElementById('staticBackdrop')
     document.getElementById('staticBackdrop').textContent = ''
     const newDiv = document.createElement('div')
@@ -162,14 +163,30 @@ const getTheUrl = phoneId => {
     newDiv.innerHTML = `
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title" id="staticBackdropLabel">Details about "${element.phone_name}"</h3>
+            <h3 class="modal-title" id="staticBackdropLabel">Model Name: "${singlePhone.name}"</h3><br>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        
+        <div class="modal-body row">
+            <div class="col-md-4">
+                <img src="${singlePhone.image}" alt="...">
+            </div>
+            <div class="col-md-4">
+                <p class="text-center text-info fw-bold"><span>Main Feature</span></p>
+                <ul>
+                    <li><b class="text-primary">Type : </b>${singlePhone.name}</li>
+                    <li><b class="text-primary">Origin : </b>${singlePhone.name}</li>
+                    <li><b class="text-primary">Life Span : </b>${singlePhone.name}</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Main Feature</h4>
+            </div>
+        </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
     </div>
     `
     detailsDiv.appendChild(newDiv)
-} */
+    console.log(detailsDiv)
+}
