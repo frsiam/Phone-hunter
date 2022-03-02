@@ -115,9 +115,7 @@ const showData = data => {
     const remainingData =data.length - twentyData.length
 
     if(data.length <= 20) {
-        console.log(twentyData.length)
         twentyData.forEach(element => {
-            console.log(element.slug)
             const cardDiv = document.createElement('div')
             cardDiv.className = 'col'
             cardDiv.innerHTML = `
@@ -164,17 +162,15 @@ const showData = data => {
         moreBtn.appendChild(moreDiv)
     } 
 }
+// Create URL for search keyword
 const getTheUrl = phoneId => {
-    console.log(phoneId)
     const newUrl = `https://openapi.programming-hero.com/api/phone/${phoneId}`
-    console.log(newUrl)
     fetch(newUrl)
         .then(res => res.json())
         .then(data => showDetails(data.data))
 }
-
+//Details show by this function
 const showDetails = singlePhone => {
-    console.log(singlePhone)
     document.getElementById('details-section').textContent = ''
     const newDiv = document.createElement('div')
     newDiv.classList.add('row','border', 'border-2', 'border-info','p-3')
@@ -183,6 +179,7 @@ const showDetails = singlePhone => {
         <img class="img-fluid h-100" src="${singlePhone.image}" alt="">
         <p class="my-3"><span class="text-primary fw-bold fs-5">Release date : </span>${singlePhone.releaseDate ? singlePhone.releaseDate : '<span class="text-danger">Not found</span>'}</p>
     </div>
+
     <div class="col-sm-12 col-md-6 col-lg-3">
         <span class="fs-4 fw-bold text-primary">${singlePhone.name}</span><br>
         <p class="fs-5 fw-bold">Main Features</p>
@@ -193,6 +190,7 @@ const showDetails = singlePhone => {
             <li class="list-group-item list-group-item-primary"><span class="fw-bold">Storage : </span>${singlePhone.mainFeatures.storage}</li>
         </ul>
     </div>
+
     <div class="col-sm-12 col-md-6 col-lg-3">
         <span class="fs-5 fw-bold inline-block">Others Information</span>
         <ul class="list-group">
@@ -212,5 +210,4 @@ const showDetails = singlePhone => {
     </div>
     `
     detailsDiv.appendChild(newDiv)
-    console.log(detailsDiv)
 }
