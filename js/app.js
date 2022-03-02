@@ -49,7 +49,6 @@ function showError(errorMessage) {
 }
 
 
-
 // not found text id 
 const foundError = document.getElementById('not-found')
 // show the phone into the card div 
@@ -60,13 +59,18 @@ const moreBtn = document.getElementById('more-phone')
 const input = document.getElementById('search-phone')
 // Detaoils div
 const detailsDiv = document.getElementById('details-section')
+//footer
+const foot = document.getElementById('footer-id')
 
 // load data which brand name you search 
 const searchPhone = () => {
     const inputText = (input.value).toLowerCase()
     if(inputText == ''){
+        foot.style.position = 'fixed'
         // clean the card div 
         phoneCard.textContent = ''
+        //found error div clear
+        foundError.textContent = ''
         // clean the button div 
         moreBtn.textContent = ''
         //clean the details div
@@ -74,6 +78,7 @@ const searchPhone = () => {
         showError('Please enter valid name')
     }
     else{
+        foot.style.position = 'fixed'
         foundError.textContent = ''
         input.value = ''
         //clean the details div
@@ -84,6 +89,7 @@ const searchPhone = () => {
             .then(res => res.json())
             .then(data => showData(data.data))
         showSuccess()
+        foot.style.position = 'static'
     }
 }
 
@@ -94,6 +100,7 @@ const showData = data => {
     moreBtn.textContent = ''
     // data not matched
     if(data.length == 0){
+        foot.style.position = 'fixed'
         // clean the card div 
         phoneCard.textContent = ''
         // clean the button div 
@@ -126,9 +133,9 @@ const showData = data => {
                 <p class="card-text fw-bold"><span class="fw-bold fs-5 text-primary">Brand :</span> ${element.brand}</p>
                 </div>
                 <div class='text-center mb-3'>
-                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5">
+                <a href="#ptag" onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5">
                 See Details
-                </button>
+                </a>
             </div>
             </div>
             `
@@ -147,9 +154,9 @@ const showData = data => {
                 <p class="card-text fw-bold"><span class="fw-bold fs-5 text-primary">Brand :</span> ${element.brand}</p>
                 </div>
                 <div class='text-center mb-3'>
-                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5">
+                <a href="#ptag" onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5">
                 See Details
-                </button>
+                </a>
             </div>
             </div>
             `
