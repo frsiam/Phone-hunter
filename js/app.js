@@ -1,10 +1,26 @@
-function showError(errorMessage) {
+// On load welcome message alert function
+const welcome = () => {
+    let timerInterval
     Swal.fire({
-        icon:'error',
-        title: 'Warning',
-        text: errorMessage
+        icon:'success',
+        title: 'Welcome to my device store',
+        html: 'I will close in <b></b> milliseconds.',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+                }, 100)
+        },
+        willClose: () => {
+            clearInterval(timerInterval)
+        }
     })
 }
+welcome()
+// Successfully show result alert function
 const showSuccess = () => {
     const Toast = Swal.mixin({
         toast: true,
@@ -20,9 +36,19 @@ const showSuccess = () => {
       
       Toast.fire({
         icon: 'success',
-        title: 'Finding phone brand...'
+        title: 'Finding device...'
       })
 }
+// error shoing sweet alert function
+function showError(errorMessage) {
+    Swal.fire({
+        icon:'error',
+        title: 'Warning',
+        text: errorMessage
+    })
+}
+
+
 
 // not found text id 
 const foundError = document.getElementById('not-found')
@@ -32,9 +58,10 @@ const phoneCard = document.getElementById('phone-card')
 const moreBtn = document.getElementById('more-phone')
 //Input field
 const input = document.getElementById('search-phone')
+// Detaoils div
+const detailsDiv = document.getElementById('details-section')
 
 // load data which brand name you search 
-
 const searchPhone = () => {
     const inputText = (input.value).toLowerCase()
     if(inputText == ''){
@@ -42,16 +69,21 @@ const searchPhone = () => {
         phoneCard.textContent = ''
         // clean the button div 
         moreBtn.textContent = ''
+        //clean the details div
+        detailsDiv.textContent = ''
         showError('Please enter valid name')
     }
     else{
         foundError.textContent = ''
         input.value = ''
+        //clean the details div
+        detailsDiv.textContent = ''
         const url = `https://openapi.programming-hero.com/api/phones?search=${inputText}`
 
         fetch(url)
             .then(res => res.json())
             .then(data => showData(data.data))
+        showSuccess()
     }
 }
 
@@ -60,8 +92,6 @@ const showData = data => {
     phoneCard.textContent = ''
     // clean the button div
     moreBtn.textContent = ''
-
-    console.log(data.length)
     // data not matched
     if(data.length == 0){
         // clean the card div 
@@ -74,9 +104,9 @@ const showData = data => {
         input.value = ''
         const div = document.createElement('div')
         div.innerHTML = `
-        <h2 class="text-danger border border-2 border-warning fw-bolder px-5 py-3">Your enter brand name is not matched</h2>
+        <h2 class="text-danger border border-2 border-warning fw-bolder px-5 py-3">Your enter device name is not matched</h2>
         `
-        showError('Your enter brand name is not matched')
+        showError('Your enter device name is not matched')
         foundError.appendChild(div)
     }
     // get 20 data 
@@ -127,23 +157,9 @@ const showData = data => {
             `
             phoneCard.appendChild(cardDiv)
         });
-        /* const moreDataShow = () => {
-            remainingData.forEach(element =>{
-                cardDiv.innerHTML = `
-                <div class="card h-100">
-                    <img src="${element.image}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a short card.</p>
-                    </div>
-                </div>
-                `
-                phoneCard.appendChild(cardDiv)
-            })
-        } */ 
         const moreDiv = document.createElement('div')
         moreDiv.innerHTML = `
-        <button onclick='moreDataShow()' class="btn btn-outline-dark">More Phone</button>
+        <button onclick="moreDataShow()" class="btn btn-outline-dark">More Phone</button>
         `
         moreBtn.appendChild(moreDiv)
     } 
@@ -159,37 +175,39 @@ const getTheUrl = phoneId => {
 
 const showDetails = singlePhone => {
     console.log(singlePhone)
-    console.log(singlePhone.mainFeatures.memory)
-    const detailsDiv = document.getElementById('details-section')
     document.getElementById('details-section').textContent = ''
     const newDiv = document.createElement('div')
-    newDiv.classList.add('row')
+    newDiv.classList.add('row','border', 'border-2', 'border-info','p-3')
     newDiv.innerHTML = `
-    <div class="col-sm-12 col-md-4">
-        <img class="img-fluid w-50" src="" alt="">
-        <p><span class="text-primary fw-bold fs-6">Release date :</span><span></span></p>
+    <div class="col-sm-12 col-md-6 col-lg-3 h-100">
+        <img class="img-fluid h-100" src="${singlePhone.image}" alt="">
+        <p class="my-3"><span class="text-primary fw-bold fs-5">Release date : </span>${singlePhone.releaseDate ? singlePhone.releaseDate : '<span class="text-danger">Not found</span>'}</p>
     </div>
-    <div class="col-sm-12 col-md-4">
-        <span class="fs-5 fw-bold">Model Name</span><br>
-        <span class="fs-5 fw-bold text-info inline-block">Main Features</span>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+        <span class="fs-4 fw-bold text-primary">${singlePhone.name}</span><br>
+        <p class="fs-5 fw-bold">Main Features</p>
         <ul class="list-group">
-            <li class="list-group-item list-group-item-primary"></li>
-            <li class="list-group-item list-group-item-primary"></li>
-            <li class="list-group-item list-group-item-primary"></li>
-            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">Chipset : </span>${singlePhone.mainFeatures.chipSet}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">Display : </span>${singlePhone.mainFeatures.displaySize}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">Memory : </span>${singlePhone.mainFeatures.memory}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">Storage : </span>${singlePhone.mainFeatures.storage}</li>
         </ul>
     </div>
-    <div class="col-sm-12 col-md-4">
-        <span class="fs-5 fw-bold text-info inline-block">Sensor Information</span>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+        <span class="fs-5 fw-bold inline-block">Others Information</span>
         <ul class="list-group">
-            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">WLAN : </span>${singlePhone.others ? singlePhone.others.WLAN : 'Not found'}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">Bluetooth : </span>${singlePhone.others ? singlePhone.others.Bluetooth : 'Not found'}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">GPS : </span>${singlePhone.others ? singlePhone.others.GPS :"Not found"}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">USB : </span>${singlePhone.others ? singlePhone.others.USB : 'Not found'}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">NFC : </span>${singlePhone.others ? singlePhone.others.NFC : 'Not found'}</li>
+            <li class="list-group-item list-group-item-primary"><span class="fw-bold">Radio : </span>${singlePhone.others ? singlePhone.others.Radio : 'Not found'}</li>
         </ul>
-        <span class="fs-5 fw-bold text-info inline-block">Others Information</span>
+    </div>
+    <div class="cl-sm-12 col-md-6 col-lg-3">
+        <p class="fs-5 fw-bold">Sensors Information</p>
         <ul class="list-group">
-            <li class="list-group-item list-group-item-primary"></li>
-            <li class="list-group-item list-group-item-primary"></li>
-            <li class="list-group-item list-group-item-primary"></li>
-            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary text-break">${singlePhone.mainFeatures.sensors}</li>
         </ul>
     </div>
     `
