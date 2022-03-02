@@ -98,7 +98,7 @@ const showData = data => {
                 <p class="card-text fw-bold"><span class="fw-bold fs-5 text-primary">Brand :</span> ${element.brand}</p>
                 </div>
                 <div class='text-center mb-3'>
-                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5">
                 See Details
                 </button>
             </div>
@@ -119,7 +119,7 @@ const showData = data => {
                 <p class="card-text fw-bold"><span class="fw-bold fs-5 text-primary">Brand :</span> ${element.brand}</p>
                 </div>
                 <div class='text-center mb-3'>
-                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button onclick="getTheUrl('${element.slug}')" type="button" class="btn btn-dark py-1 px-5 fs-5">
                 See Details
                 </button>
             </div>
@@ -158,60 +158,39 @@ const getTheUrl = phoneId => {
 }
 
 const showDetails = singlePhone => {
-    console.log(singlePhone.releaseDate)
+    console.log(singlePhone)
     console.log(singlePhone.mainFeatures.memory)
-    const detailsDiv = document.getElementById('staticBackdrop')
-    document.getElementById('staticBackdrop').textContent = ''
+    const detailsDiv = document.getElementById('details-section')
+    document.getElementById('details-section').textContent = ''
     const newDiv = document.createElement('div')
-    newDiv.classList.add('modal-dialog','modal-xl','px-5')
+    newDiv.classList.add('row')
     newDiv.innerHTML = `
-    <div class="modal-content">
-        <div class="modal-header row bg-primary">
-            <div class="col-md-11 col-sm-8 text-light">
-                <h4 class="modal-title" id="staticBackdropLabel"><span class="text-dark">Model Name :</span> "${singlePhone.name}"</h4>
-            </div>
-            <div class="col-md-1 col-sm-4">
-                <button type="button" class="btn-close btn-dark bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-        </div>
-        <div class="modal-body row">
-            <div class="col-md-3 h-100">
-                <img src="${singlePhone.image}" class="img-fluid h-100" alt="...">
-                <p class="mt-3">
-                    <span class="text-success fs-5 fw-bold">Release date : </span><span>${singlePhone.releaseDate ? singlePhone.releaseDate :'<span class="text-danger">Not found</span>'}</span>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p class="text-center text-info fs-5">Main Features</p>
-                <ul>
-                    <li><b>Memory : </b>${singlePhone.mainFeatures.memory}</li>
-                    <li><b>Display-Size: </b>${singlePhone.mainFeatures.displaySize}</li>
-                    <li><b>Chipset : </b>${singlePhone.mainFeatures.chipSet}</li>
-                    <li><b>Storage : </b>${singlePhone.mainFeatures.storage}</li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <p class="text-center text-info fs-5">Sensor Information</p>
-                <ul>
-                    <li><b>Memory : </b>${singlePhone.mainFeatures.memory}</li>
-                    <li><b>Display-Size: </b>${singlePhone.mainFeatures.displaySize}</li>
-                    <li><b>Chipset : </b>${singlePhone.mainFeatures.chipSet}</li>
-                    <li><b>Storage : </b>${singlePhone.mainFeatures.storage}</li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <p class="text-center text-info fs-5">Others Information</p>
-                <ul>
-                    <li><b>Memory : </b>${singlePhone.mainFeatures.memory}</li>
-                    <li><b>Display-Size: </b>${singlePhone.mainFeatures.displaySize}</li>
-                    <li><b>Chipset : </b>${singlePhone.mainFeatures.chipSet}</li>
-                    <li><b>Storage : </b>${singlePhone.mainFeatures.storage}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
+    <div class="col-sm-12 col-md-4">
+        <img class="img-fluid w-50" src="" alt="">
+        <p><span class="text-primary fw-bold fs-6">Release date :</span><span></span></p>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <span class="fs-5 fw-bold">Model Name</span><br>
+        <span class="fs-5 fw-bold text-info inline-block">Main Features</span>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"></li>
+        </ul>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <span class="fs-5 fw-bold text-info inline-block">Sensor Information</span>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary"></li>
+        </ul>
+        <span class="fs-5 fw-bold text-info inline-block">Others Information</span>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"></li>
+            <li class="list-group-item list-group-item-primary"></li>
+        </ul>
     </div>
     `
     detailsDiv.appendChild(newDiv)
